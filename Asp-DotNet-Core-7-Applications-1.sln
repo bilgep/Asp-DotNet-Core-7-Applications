@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopBooks2_RazorPages", "Top
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F96BF196-8548-471F-A6E4-902DFCEB906B}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\..\Downloads\AspNetCore_7_HandsOn.png = ..\..\..\Downloads\AspNetCore_7_HandsOn.png
 		Info.txt = Info.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopBooks1_MVC", "TopBooks1_MVC\TopBooks1_MVC.csproj", "{04CA042E-C5CE-41A5-84C6-061D0FB7A4BC}"
