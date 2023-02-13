@@ -1,0 +1,49 @@
+﻿@page "/CreateBook"
+@using TopBooks5_BlazorWebAssmbly.ApiServices;
+@using TopBooks5_Shared;
+@inject IBookApiService apiService;
+@inject NavigationManager navigator;
+
+<PageTitle>TopBooks5 | Create Book</PageTitle>
+
+<EditForm Model="NewBook" OnValidSubmit="CreateBookAsync">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="row mb-2 form-group">
+        <div class="col-3">
+            <label>@nameof(NewBook.Title)</label>
+        </div>
+        <div class="col-9">
+            <InputText class="form-control" type="text" @bind-Value="NewBook.Title" />
+        </div>
+    </div>
+    <div class="row mb-2 form-group">
+        <div class="col-3">
+            <label>@nameof(NewBook.Author)</label>
+        </div>
+        <div class="col-9">
+            <InputText class="form-control" type="text" @bind-Value="NewBook.Author" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <label>@nameof(NewBook.Price)</label>
+        </div>
+        <div class="col-9">
+            <InputNumber class="form-control" type="number" @bind-Value="NewBook.Price" />
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+
+</EditForm>
+
+@code {
+    public Book NewBook { get; set; } = new();
+
+    private async void CreateBookAsync()
+    {
+        await apiService.Add(NewBook);
+        navigator.NavigateTo("/");
+    }
+}

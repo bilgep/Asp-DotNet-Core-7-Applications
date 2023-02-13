@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option csharp_namespace = "TopBooks7_gRPC";
+
+package TopBooks7gRPC;
+
+service Books
+{
+	rpc GetAll(AllBooksRequest) returns (AllBooksResponse); 
+	rpc CreateNew(CreateNewBookRequest) returns (CreateNewBookResponse);
+}
+
+message AllBooksRequest {
+}
+
+message AllBooksResponse 
+{
+	repeated Book books = 1;
+}
+
+message CreateNewBookRequest{
+	Book book = 1;
+}
+
+message CreateNewBookResponse{
+	Book book = 1;
+}
+
+message Book{
+	int32 id =1;
+	string title = 2;
+	string author = 3;
+	float price = 4;
+	int32 stock = 5;
+	string imageFilePath = 6;
+}

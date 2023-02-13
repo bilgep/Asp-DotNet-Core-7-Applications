@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.51.0" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <ProjectReference Include="..\TopBooks7_gRPC\TopBooks7_gRPC.csproj" />
+  </ItemGroup>-->
+
+	<ItemGroup>
+		<Folder Include="Protos\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="..\TopBooks7_gRPC\Protos\bookbuf.proto">
+			<Link>Protos\bookbuf.proto</Link>
+		</Protobuf>
+	</ItemGroup>
+
+
+
+</Project>

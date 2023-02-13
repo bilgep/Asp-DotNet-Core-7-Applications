@@ -1,0 +1,40 @@
+﻿@page
+@model TopBooks2.Pages.CreateBookModel
+@{
+    ViewData["Title"] = "TopBooks | Create Book";
+}
+
+<h4>Add A Book</h4>
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="row mb-2 form-group">
+        <div class="col-3">
+            <label asp-for="NewBookToAdd.Title"></label>
+        </div>
+        <div class="col-9">
+            <input class="form-control" type="text" asp-for="NewBookToAdd.Title" />
+        </div>
+    </div>
+
+    <div class="row mb-2 form-group">
+        <div class="col-3">
+            <label asp-for="NewBookToAdd.Author"></label>
+        </div>
+        <div class="col-9">
+            <input class="form-control" type="text" asp-for="NewBookToAdd.Author" />
+        </div>
+    </div>
+
+    <div class="row mb-2 form-group">
+        <div class="col-3">
+            <label asp-for="NewBookToAdd.Price"></label>
+        </div>
+        <div class="col-9">
+            <input class="form-control" type="number" asp-for="NewBookToAdd.Price" />
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

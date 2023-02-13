@@ -1,0 +1,46 @@
+﻿@page "/"
+@using TopBooks5_BlazorWebAssmbly.ApiServices;
+@using TopBooks5_Shared;
+@inject IBookApiService apiService;
+
+<PageTitle>TopBooks5 | Home</PageTitle>
+
+<div class="text-center">
+    <p>
+        <div class="row mb-4">
+            <div class="col-2 text-center"><b>Title</b></div>
+            <div class="col-2 text-center"><b>Author</b></div>
+            <div class="col-2 text-center"><b>Price</b></div>
+        </div>
+
+        <div class="row mb-4"><hr /></div>
+
+        @foreach (var item in Books)
+        {
+            <div class="row mb-4">
+                <div class="col-2 text-center">@item.Title</div>
+                <div class="col-2 text-center">@item.Author</div>
+                <div class="col-2 text-center">@item.Price </div>
+                <div class="col-2 text-center">
+                    <img src="@item.ImageFilePath" height="80" alt="@item.Title" />
+                </div>
+            </div>
+        }
+    </p>
+</div>
+
+<div class="row">
+    <div class="ml-5 mt-3">
+        <NavLink href="CreateBook">Create New Book</NavLink>
+    </div>
+</div>
+
+@code{
+    public IEnumerable<Book> Books { get; set; } = Enumerable.Empty<Book>();
+    protected override async Task OnInitializedAsync()
+    {
+        Books = await apiService.GetAll();
+
+    }
+}
+

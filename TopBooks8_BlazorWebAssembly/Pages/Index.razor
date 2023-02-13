@@ -1,0 +1,68 @@
+﻿@page "/"
+@using TopBooks8_BlazorWebAssembly.ApiServices;
+@using TopBooks8_Shared;
+@inject IBookApiService apiService;
+@using Microsoft.AspNetCore.SignalR.Client;
+
+<PageTitle>TopBooks8 | Home</PageTitle>
+
+
+<div class="text-center">
+    <p>
+        <div class="row mb-4">
+            <div class="col-2 text-center"><b>Title</b></div>
+            <div class="col-2 text-center"><b>Author</b></div>
+            <div class="col-2 text-center"><b>Price</b></div>
+        </div>
+
+        <div class="row mb-4"><hr /></div>
+
+        @foreach (var item in Books)
+        {
+            <div class="row mb-4">
+                <div class="col-2 text-center">@item.Title</div>
+                <div class="col-2 text-center">@item.Author</div>
+                <div class="col-2 text-center">@item.Price </div>
+                <div class="col-2 text-center">
+                    <img src="@item.ImageFilePath" height="80" alt="@item.Title" />
+                </div>
+            </div>
+        }
+    </p>
+</div>
+
+<div class="row">
+    <div class="ml-5 mt-3">
+        <NavLink href="CreateBook">Create New Book</NavLink>
+    </div>
+</div>
+
+@code{
+    public List<Book> Books { get; set; } = Enumerable.Empty<Book>().ToList();
+    private HubConnection? hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Repository Actions
+        var temp = await apiService.GetAll();
+        Books = temp.ToList();
+
+        // SignalR Actions
+        hubConnection = new HubConnectionBuilder().WithUrl("https://localhost:7270/bookhub").Build();
+
+        hubConnection.On<Book>("NewBook", async (book) => 
+        {
+            Books.Add(book);
+            await hubConnection.SendAsync("SendMessageToAll", $"book id: {book.Id} added");
+            StateHasChanged();
+        });
+
+        hubConnection.On<string>("Message", async (message) =>
+        {
+            await hubConnection.SendAsync("SendMessageToAll", $"message: {message}");
+        });
+
+        await hubConnection.StartAsync();
+    }
+}
+
